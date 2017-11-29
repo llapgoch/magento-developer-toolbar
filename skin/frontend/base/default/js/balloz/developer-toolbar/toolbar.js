@@ -94,8 +94,8 @@
 			var $element = $(el);
 
 			var resDims = getDimensionObject($element);
-		
-			$element.find('*').each(function(){
+
+			$element.find('*:not(iframe)').each(function(){
 				var $this = $(this);
 				var obDims = getDimensionObject($this);
 			
@@ -118,7 +118,8 @@
 				return commentBlocks;
 			}
 
-			commentBlocks = $("*").contents().filter(
+
+			commentBlocks = $("*:not(iframe)").contents().filter(
 				function(){ 
 					if(this.nodeType == 8){
 						return this.nodeValue.indexOf('developer-toolbar-dom-marker') !== -1;
@@ -202,9 +203,9 @@
 				'width':width,
 				'height':height
 			});
-		
+			
 			if($('body').scrollTop() !== dims.top - scrollPadding && performScroll){
-				$('body').animate({scrollTop:dims.top - scrollPadding}, 500);
+				$('body,html').animate({scrollTop:dims.top - scrollPadding}, 500);
 			}
 		
 			$(window).on('resize.developertoolbar', function(){
